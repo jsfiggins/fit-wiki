@@ -1,0 +1,506 @@
+/* App.css or any global CSS file */
+body {
+  font-family: 'Saira', sans-serif;
+}
+
+/* Styles for HeroBanner */
+.hero-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content to the left */
+  justify-content: center;
+  text-align: left;
+  background-image: url('./components/images/spotmeBackground.png');
+  background-size: cover; /* Ensure the image covers the whole screen */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  animation: fadeIn 2s ease-in-out;
+  padding: 50px 40px; /* Increased padding for better spacing */
+  position: relative;
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height of the viewport */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body{
+  background-color: black;
+}
+
+.title {
+  font-size: 4rem; /* Larger font for the title */
+  font-weight: bold;
+  margin-bottom: 10px;
+  color:red;
+  letter-spacing: 2px; /* Spacing between letters */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.subtitle {
+  font-size: 2.5rem; /* Slightly larger subtitle for emphasis */
+  margin: 10px 0;
+  line-height: 1.2; /* Reduced line height for compactness */
+}
+
+.description {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  max-width: 500px; /* Limit width for better readability */
+  line-height: 1.5;
+}
+
+.exerciseButton {
+  background-color: #4925ff;
+  color: white;
+  padding: 15px 30px; /* Increased padding for a larger button */
+  border: none;
+  border-radius: 25px; /* Rounded corners for a modern look */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 20px;
+  text-transform: uppercase; /* Uppercase for button text */
+}
+
+.exerciseButton:hover {
+  transform: scale(1.05);
+  background-color: yellow; /* slight color change on hover */
+  transition: all 0.3s ease;
+}
+
+
+.hero-banner-img {
+  width: 500px;
+  height: auto;
+  position: absolute;
+  right: 50px;
+  bottom: 0;
+  opacity: 0.85;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  backdrop-filter: blur(2px); /* Optional: adds a blur effect behind the navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease-in-out; /* Smooth transition on scroll */
+}
+
+nav.transparent {
+  background-color: transparent; /* Fully transparent for initial load */
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+}
+
+nav img {
+  width: 80px;
+  height: auto;
+  padding-left: 15px;
+
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff; /* White for contrast on a dark background */
+  font-weight: bold;
+  font-size: 1rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  transition: color 0.3s;
+}
+nav ul li a:hover {
+  color: yellow;
+}
+/* Styles for Exercise Detail Page */
+.exercise-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px; /* Rounded corners for images */
+
+}
+
+.exercise-details {
+  width: 100%;
+  color:white;
+  background-color: #4925ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Consistent shadow for details */
+}
+
+.exercise-detail {
+  display: flex;
+  justify-content: space-between;
+  width:100%vw;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0; /* Divider between details */
+}
+
+.detail-label {
+  font-weight: bold;
+  color: white; /* Dark color for labels */
+}
+
+.detail-value {
+  color: white; /* Softer color for values */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  padding-left:25%;
+  text-transform: capitalize; /* Capitalize the values for uniformity */
+}
+/* Styles for Footer */
+.footer {
+  background-color: black; /* Dark background for contrast */
+  color: #ffffff; /* White text for readability */
+  padding: 20px 20px;
+  text-align: center;
+}
+
+.footer p {
+margin:auto;
+  font-size: 1rem;
+}
+
+.footer .social-icons {
+  margin: 20px 0;
+}
+
+.footer .social-icons a {
+  color: #ffffff; /* White color for icons */
+  font-size: 1.5rem; /* Larger icon size */
+  margin: 0 10px; /* Spacing between icons */
+  transition: color 0.3s;
+}
+
+.footer .social-icons a:hover {
+  color: #ff2625; /* Highlight color on hover */
+}
+
+.footer-bottom {
+  border-top: 1px solid #ffffff; /* Divider line */
+  padding-top: 20px;
+  margin-top: 20px;
+  font-size: 0.875rem; /* Slightly smaller text */
+}
+/* Styles for Exercises Page */
+#exercises {
+  padding: 20px;
+}
+
+.exercises-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top:20%;
+  margin-bottom: 20px;
+  color: red; /* Match color with other elements */
+}
+
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px; /* Space between exercise cards */
+  justify-content: center;
+}
+
+
+
+/* Styles for Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.pagination li {
+  cursor: pointer;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination li.active {
+  background-color: #ff2625;
+  color: #ffffff;
+}
+
+.pagination li:hover {
+  background-color: yellow;
+}
+
+
+/* Loader styling (assuming you have a loader component) */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+/* Styles for ExerciseCard */
+.exercise-card {
+  width: 100%;
+  max-width: 200px; /* Reduce max-width for smaller cards */
+  margin-bottom: 10px; /* Reduce margin for tighter layout */
+  border: 1px solid #ddd;
+  background-color: #4925ff;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.exercise-image {
+  width: 100%;
+  height: auto;
+}
+
+.exercise-info {
+  padding: 5px;
+}
+
+.exercise-button {
+  background-color: #ff2625;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.exercise-button:hover {
+  background-color: #e02d2d;
+}
+
+.exercise-name {
+  padding: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Container for the scrollable area */
+.body-part-scroll-wrapper {
+  position: relative;
+  overflow: hidden; /* Hide the overflow to create the cut-off effect */
+  padding: 0 20px; /* Space on either side for the cut-off effect */
+}
+
+/* Styles for BodyPart Container */
+.body-part-container {
+  display: flex; /* Change to flex for horizontal alignment */
+  justify-content: center;
+  width: 100%vh;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-y: hidden; /* Hide vertical overflow */
+  gap: 10px; /* Space between cards */
+  padding: 20px 0; /* Space above and below the container */
+  scroll-snap-type: x mandatory; /* Snap scrolling */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow for a 3D effect */
+}
+
+/* Styles for Each BodyPart Card */
+.bodyPart-card {
+  flex: 0 0 auto; /* Prevent cards from shrinking or growing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  text-align: center;
+  scroll-snap-align: center; /* Ensure cards align nicely when scrolling */
+}
+
+.bodyPart-card.active {
+  background-color: #ff2625;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.bodyPart-card:hover{
+  background-color: yellow;
+  transform: scale(1.15);
+}
+
+.bodyPart-icon {
+  width: 60px; /* Size of the icon */
+  height: 60px; /* Maintain aspect ratio */
+  margin-bottom: 5px; /* Space between icon and text */
+}
+
+.bodyPart-text {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Optional: Styling for scrollbar */
+.body-part-container::-webkit-scrollbar {
+  height: 8px; /* Set the height of the scrollbar */
+}
+
+.body-part-container::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Round the corners of the scrollbar thumb */
+}
+
+.body-part-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+/* Optional: Shadow effect on scroll wrapper */
+.body-part-scroll-wrapper::before,
+.body-part-scroll-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 20px; /* Width of the shadow effect */
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+  z-index: 1;
+}
+
+.body-part-scroll-wrapper::before {
+  left: 0;
+}
+
+.body-part-scroll-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
+}
+
+/* Styles for SearchExercises */
+.search-container {
+  padding: 20px;
+  margin-top: 60px;
+}
+
+.search-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white; 
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+max-width: 400px;
+margin-left: 25%;
+margin-right:25%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+  border-color: #ff2625;
+}
+
+.search-bar button {
+  background-color: #ff2625;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+  background-color: #e02e1b;
+}
+
+
+
+.exercises-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width:100% vw;
+}
+
+.exercises-container .exercise-card {
+  width: 100%;
+  max-width: 300px; /* Adjust width as needed */
+  margin-bottom: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .exercises-container {
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+  }
+}
+
