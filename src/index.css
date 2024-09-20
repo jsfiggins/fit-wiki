@@ -524,22 +524,9 @@ margin-right:25%;
     justify-content: center;
   }
 
-  .exercises-container {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-}
+
 
 @media (max-width: 480px) {
   .search-bar input, .search-bar button {
     width: 100%;
   }
-
-  .body-part-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .exercises-container {
-    grid-template-columns: 2fr;
-  }
-}
