@@ -62,7 +62,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
   return (
     <div id="exercises">
-      <h4 className="exercises-title">Exercises</h4>
+      <h4 className="exercises-title">All Exercises</h4>
       
       <div className="exercises-grid">
         {currentExercises.map((exercise, index) => (
