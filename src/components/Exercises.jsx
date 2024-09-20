@@ -1,73 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { fetchData, exerciseOptions } from '../utils/fetchData';
+import React, { useEffect, useState } from 'react';
 import ExerciseCard from './ExerciseCard';
-import BodyPart from './BodyPart';
+import Loader from './Loader';
+import { fetchData, exerciseOptions } from '../utils/fetchData';
 
-const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLoading }) => { 
-  const [search, setSearch] = useState('');
-  const [bodyParts, setBodyParts] = useState([]);
-  const [allExercises, setAllExercises] = useState([]);
-  const [searching, setSearching] = useState(false);
-
-  // Pagination states
+const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [exercisesPerPage] = useState(25);
+  const [exercisesPerPage] = useState(100);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchInitialData = async () => {
+    const fetchExercisesData = async () => {
       try {
-        const fetchedExercises = await fetchData('https://exercisedb.p.rapidapi.com/exercises?limit=0', exerciseOptions);
-        setExercises(fetchedExercises);
-        setAllExercises(fetchedExercises);
-        setSearching(false);
+        setLoading(true);
 
-        const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions);
-        setBodyParts(['all', ...bodyPartsData]);
-      } catch (error) {
-        console.error('Failed to fetch data');
-      }
-    };
+        let apiUrl = 'https://exercisedb.p.rapidapi.com/exercises';
+        if (bodyPart === 'all' || bodyPart === '') {
+          apiUrl += `?limit=800`;
+        } else {
+          apiUrl += `/bodyPart/${bodyPart}?limit=800`;
+        }
 
-    fetchInitialData();
-  }, [setExercises]);
-
-  const handleSearch = async (bodyPart = search) => {
-    if (bodyPart) {
-      setSearching(true);
-      setLoading(true);
-      try {
-        const exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}?limit=0`, exerciseOptions);
+        const exercisesData = await fetchData(apiUrl, exerciseOptions);
         setExercises(exercisesData);
-        setSearch('');
-        setCurrentPage(1); // Reset to the first page after searching
       } catch (error) {
-        console.error('Failed to fetch exercises data');
+        console.error('Error fetching exercises:', error);
       } finally {
         setLoading(false);
       }
-    }
-  };
+    };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
+    fetchExercisesData();
+  }, [bodyPart, setExercises]);
 
-  // Pagination Logic
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  const currentExercises = searching
-    ? exercises.slice(indexOfFirstExercise, indexOfLastExercise)
-    : allExercises.slice(indexOfFirstExercise, indexOfLastExercise);
+  const currentExercises = exercises.slice(indexOfFirstExercise, indexOfLastExercise);
 
   const paginate = (value) => {
     setCurrentPage(value);
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
+    window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
 
-  // Total pages for exercises
-  const totalPages = Math.ceil((searching ? exercises.length : allExercises.length) / exercisesPerPage);
+  // Determine which page numbers to display
+  const totalPages = Math.ceil(exercises.length / exercisesPerPage);
   const maxPagesToShow = 5; // Maximum number of pages to display at once
   let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
   let endPage = Math.min(totalPages, currentPage + Math.floor(maxPagesToShow / 2));
@@ -81,42 +56,20 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
     }
   }
 
-  return (
-    <div className="search-container">
-      <h1>Search By Body Part</h1>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search by Body Part"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-        <button onClick={() => handleSearch()}>Search</button>
-      </div>
-      <div className='body-part-scroll-wrapper'>
-        <div className="body-part-container">
-          {bodyParts.map((part) => (
-            <BodyPart
-              key={part}
-              exercises={exercises}
-              item={part}
-              setBodyPart={setBodyPart}
-              bodyPart={bodyPart}
-              handleSearch={handleSearch}
-              setSearch={setSearch}
-            />
-          ))}
-        </div>
-      </div>
+  if (loading) {
+    return <Loader />;
+  }
 
-      <div className="exercises-container">
-        {currentExercises.map(exercise => (
-          <ExerciseCard key={exercise.id} exercise={exercise} />
+  return (
+    <div id="exercises">
+      <h4 className="exercises-title">Exercises</h4>
+      
+      <div className="exercises-grid">
+        {currentExercises.map((exercise, index) => (
+          <ExerciseCard key={index} exercise={exercise} />
         ))}
       </div>
 
-      {/* Pagination */}
       <div className="pagination-container">
         {totalPages > 1 && (
           <ul className="pagination">
@@ -148,4 +101,4 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
   );
 };
 
-export default SearchExercises;
+export default Exercises;

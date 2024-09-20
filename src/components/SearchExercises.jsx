@@ -16,13 +16,11 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        // Fetch all exercises initially with no limit
         const fetchedExercises = await fetchData('https://exercisedb.p.rapidapi.com/exercises?limit=0', exerciseOptions);
         setExercises(fetchedExercises);
         setAllExercises(fetchedExercises);
         setSearching(false);
 
-        // Fetch body parts data
         const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions);
         setBodyParts(['all', ...bodyPartsData]);
       } catch (error) {
@@ -38,11 +36,10 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
       setSearching(true);
       setLoading(true);
       try {
-        // Fetch exercises for the specific body part with no limit
         const exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}?limit=0`, exerciseOptions);
         setExercises(exercisesData);
         setSearch('');
-        setCurrentPage(1); // Reset to the first page after searching
+        setCurrentPage(1);
       } catch (error) {
         console.error('Failed to fetch exercises data');
       } finally {
@@ -57,7 +54,6 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
     }
   };
 
-  // Pagination Logic
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = searching
@@ -66,8 +62,20 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Total pages for exercises
   const totalPages = Math.ceil((searching ? exercises.length : allExercises.length) / exercisesPerPage);
+
+  // Pagination logic to display ellipses for hidden page numbers
+  const maxPagesToShow = 5;
+  let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+  let endPage = Math.min(totalPages, currentPage + Math.floor(maxPagesToShow / 2));
+
+  if (endPage - startPage + 1 < maxPagesToShow) {
+    if (startPage === 1) {
+      endPage = Math.min(totalPages, maxPagesToShow);
+    } else if (endPage === totalPages) {
+      startPage = Math.max(1, totalPages - maxPagesToShow + 1);
+    }
+  }
 
   return (
     <div className="search-container">
@@ -82,7 +90,7 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
         />
         <button onClick={() => handleSearch()}>Search</button>
       </div>
-      <div className='body-part-scroll-wrapper'>
+      <div className="body-part-scroll-wrapper">
         <div className="body-part-container">
           {bodyParts.map((part) => (
             <BodyPart
@@ -108,15 +116,27 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
       <div className="pagination-container">
         {totalPages > 1 && (
           <ul className="pagination">
-            {[...Array(totalPages)].map((_, index) => (
+            {startPage > 1 && (
+              <>
+                <li onClick={() => paginate(1)}>1</li>
+                {startPage > 2 && <li>...</li>}
+              </>
+            )}
+            {Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index).map((page) => (
               <li
-                key={index + 1}
-                className={currentPage === index + 1 ? 'active' : ''}
-                onClick={() => paginate(index + 1)}
+                key={page}
+                className={currentPage === page ? 'active' : ''}
+                onClick={() => paginate(page)}
               >
-                {index + 1}
+                {page}
               </li>
             ))}
+            {endPage < totalPages && (
+              <>
+                {endPage < totalPages - 1 && <li>...</li>}
+                <li onClick={() => paginate(totalPages)}>{totalPages}</li>
+              </>
+            )}
           </ul>
         )}
       </div>
