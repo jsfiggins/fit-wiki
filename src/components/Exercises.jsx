@@ -5,7 +5,7 @@ import { fetchData, exerciseOptions } from '../utils/fetchData';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [exercisesPerPage] = useState(100);
+  const [exercisesPerPage] = useState(25);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

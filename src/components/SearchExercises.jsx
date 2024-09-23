@@ -3,7 +3,7 @@ import { fetchData, exerciseOptions } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
 import BodyPart from './BodyPart';
 
-const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLoading }) => { 
+const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLoading }) => {
   const [search, setSearch] = useState('');
   const [bodyParts, setBodyParts] = useState([]);
   const [allExercises, setAllExercises] = useState([]);
@@ -60,12 +60,12 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
     ? exercises.slice(indexOfFirstExercise, indexOfLastExercise)
     : allExercises.slice(indexOfFirstExercise, indexOfLastExercise);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   const totalPages = Math.ceil((searching ? exercises.length : allExercises.length) / exercisesPerPage);
 
-  // Pagination logic to display ellipses for hidden page numbers
-  const maxPagesToShow = 5;
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Pagination Logic
+  const maxPagesToShow = 5; // Show up to 5 page numbers
   let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
   let endPage = Math.min(totalPages, currentPage + Math.floor(maxPagesToShow / 2));
 
@@ -88,14 +88,15 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={() => handleSearch()}>Search</button>
+        <button className="search" onClick={() => handleSearch()}>Search</button>
       </div>
+
+      {/* Slider for Body Parts */}
       <div className="body-part-scroll-wrapper">
         <div className="body-part-container">
           {bodyParts.map((part) => (
             <BodyPart
               key={part}
-              exercises={exercises}
               item={part}
               setBodyPart={setBodyPart}
               bodyPart={bodyPart}
@@ -106,8 +107,9 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
         </div>
       </div>
 
+      {/* Exercise Cards */}
       <div className="exercises-container">
-        {currentExercises.map(exercise => (
+        {currentExercises.map((exercise) => (
           <ExerciseCard key={exercise.id} exercise={exercise} />
         ))}
       </div>
@@ -116,12 +118,15 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
       <div className="pagination-container">
         {totalPages > 1 && (
           <ul className="pagination">
+            {/* Show "1" and ellipsis if needed */}
             {startPage > 1 && (
               <>
                 <li onClick={() => paginate(1)}>1</li>
                 {startPage > 2 && <li>...</li>}
               </>
             )}
+
+            {/* Display page numbers */}
             {Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index).map((page) => (
               <li
                 key={page}
@@ -131,6 +136,8 @@ const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart, setLo
                 {page}
               </li>
             ))}
+
+            {/* Show last page and ellipsis if needed */}
             {endPage < totalPages && (
               <>
                 {endPage < totalPages - 1 && <li>...</li>}

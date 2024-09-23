@@ -63,7 +63,6 @@ body{
 
 .exerciseButton {
   background-color: #4925ff;
-  color: white;
   padding: 15px 30px; /* Increased padding for a larger button */
   border: none;
   border-radius: 25px; /* Rounded corners for a modern look */
@@ -74,10 +73,18 @@ body{
   text-transform: uppercase; /* Uppercase for button text */
 }
 
+.explore-link{
+  text-decoration: none;
+  color:white;
+}
+
 .exerciseButton:hover {
   transform: scale(1.05);
   background-color: yellow; /* slight color change on hover */
   transition: all 0.3s ease;
+  .explore-link{
+    color: black;
+  }
 }
 
 
@@ -119,6 +126,7 @@ nav img {
   width: 80px;
   height: auto;
   padding-left: 15px;
+  padding-right:15px;
 
 }
 
@@ -149,12 +157,14 @@ nav ul li a:hover {
 
 }
 
+
 .exercise-details {
   width: 100%;
   color:white;
   background-color: #4925ff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Consistent shadow for details */
+  margin-bottom:30px;
 }
 
 .exercise-detail {
@@ -183,6 +193,7 @@ nav ul li a:hover {
   color: #ffffff; /* White text for readability */
   padding: 20px 20px;
   text-align: center;
+  margin-top:10px;
 }
 
 .footer p {
@@ -215,12 +226,17 @@ margin:auto;
 #exercises {
   padding: 20px;
 }
-
+.exercise-detail-container{
+  margin-bottom:10px;
+}
+.exercise-detail:last-child {
+  border-bottom: none; /* Remove border from the last exercise detail */
+}
 .exercises-title {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  margin-top:20%;
+  margin-top:15%;
   margin-bottom: 20px;
   color: red; /* Match color with other elements */
 }
@@ -279,10 +295,12 @@ margin:auto;
 /* Styles for ExerciseCard */
 .exercise-card {
   width: 100%;
+  background: linear-gradient(8deg, #4925ff, yellow);
   max-width: 200px; /* Reduce max-width for smaller cards */
   margin-bottom: 10px; /* Reduce margin for tighter layout */
   border: 1px solid #ddd;
-  background-color: #4925ff;
+  backdrop-filter: blur(10px); /* Optional: adds a blur effect behind the navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -292,6 +310,10 @@ margin:auto;
 .exercise-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(8deg, yellow,#4925ff);
+  .exercise-name{
+    color: #4925ff;
+  }
 }
 
 .exercise-image {
@@ -326,52 +348,66 @@ margin:auto;
   color: #fff;
 }
 
-/* Container for the scrollable area */
+
+/* Carousel container */
 .body-part-scroll-wrapper {
   position: relative;
-  overflow: hidden; /* Hide the overflow to create the cut-off effect */
-  padding: 0 20px; /* Space on either side for the cut-off effect */
+  overflow: hidden; /* Hide the overflowing cards */
+  width: 100%;
+  height: 120px;
+  margin: 0 auto;
+  margin-bottom:20px;
+  margin-top:20px;
+  
+  
 }
 
-/* Styles for BodyPart Container */
+/* Carousel content (cards) */
 .body-part-container {
-  display: flex; /* Change to flex for horizontal alignment */
-  justify-content: center;
-  width: 100%vh;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  overflow-y: hidden; /* Hide vertical overflow */
-  gap: 10px; /* Space between cards */
-  padding: 20px 0; /* Space above and below the container */
-  scroll-snap-type: x mandatory; /* Snap scrolling */
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow for a 3D effect */
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  animation: scrollCarousel 20s linear infinite; /* Carousel Animation */
+  margin-left:15%;
+  margin-right:15%;
 }
 
-/* Styles for Each BodyPart Card */
+/* Animation keyframes */
+@keyframes scrollCarousel {
+  0% {
+    transform: translateX(0); /* Start position */
+  }
+  100% {
+    transform: translateX(-100%); /* End position (one full rotation) */
+  }
+}
+
 .bodyPart-card {
-  flex: 0 0 auto; /* Prevent cards from shrinking or growing */
+  flex: 0 0 auto;
+  width: 150px;
+  height: 100px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease;
   text-align: center;
-  scroll-snap-align: center; /* Ensure cards align nicely when scrolling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .bodyPart-card.active {
   background-color: #ff2625;
   color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
-.bodyPart-card:hover{
-  background-color: yellow;
-  transform: scale(1.15);
+
+.bodyPart-card:hover {
+  transform: scale(1.1);
 }
+
 
 .bodyPart-icon {
   width: 60px; /* Size of the icon */
@@ -384,86 +420,94 @@ margin:auto;
   color: #333;
 }
 
-/* Optional: Styling for scrollbar */
-.body-part-container::-webkit-scrollbar {
-  height: 8px; /* Set the height of the scrollbar */
+
+/* Styles for Each BodyPart Card */
+.bodyPart-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  text-align: center;
+  width: 100%;
+  max-width: 150px; /* Set a max width for better alignment */
 }
 
-.body-part-container::-webkit-scrollbar-thumb {
-  background: #888; /* Color of the scrollbar thumb */
-  border-radius: 10px; /* Round the corners of the scrollbar thumb */
+.bodyPart-card:hover {
+  background: linear-gradient(8deg, yellow, #4925ff);
+  transform: scale(1.15);
 }
 
-.body-part-container::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the scrollbar thumb on hover */
+.bodyPart-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
 }
 
-/* Optional: Shadow effect on scroll wrapper */
-.body-part-scroll-wrapper::before,
-.body-part-scroll-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 20px; /* Width of the shadow effect */
-  height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
-  z-index: 1;
+.bodyPart-text {
+  font-weight: bold;
+  color: #333;
 }
 
-.body-part-scroll-wrapper::before {
-  left: 0;
-}
-
-.body-part-scroll-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
-}
-
-/* Styles for SearchExercises */
+/* Polished Styles for SearchExercises */
 .search-container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  margin-top: 60px;
+  margin-top: auto;
+  text-align: center; /* Center the content */
+  margin-left:15%;
+  margin-right:15%;
+
 }
 
 .search-container h1 {
   font-size: 24px;
   font-weight: bold;
+  margin-top: 100px;
   margin-bottom: 20px;
-  text-align: center;
-  color: white; 
+  color: white;
 }
 
 .search-bar {
+  width: 50%; /* Adjusted width of the search bar */
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Stack input and button vertically */
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .search-bar input {
-max-width: 400px;
-margin-left: 25%;
-margin-right:25%;
+  width: 100%; /* Make the input full width */
+  height: 20px; /* Increased height for better consistency */
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
+  padding: 10px;
+  margin-bottom: 10px; /* Space between input and button */
   outline: none;
   transition: border-color 0.3s;
 }
 
 .search-bar input:focus {
-  border-color: #ff2625;
+  border-color: #ff2625; /* Change border color on focus */
 }
 
 .search-bar button {
+  width: 100%; /* Make the button match the input width */
+  height: 45px; /* Same height as the input */
   background-color: #ff2625;
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-left: 10px;
   transition: background-color 0.3s;
 }
 
@@ -471,62 +515,53 @@ margin-right:25%;
   background-color: #e02e1b;
 }
 
-
-
+/* Grid container for exercises */
 .exercises-container {
-  
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
   gap: 10px; /* Space between exercise cards */
-  margin-left: 10%;
-  margin-right:10%;
-}
-
-.exercises-container .exercise-card {
+  justify-content: center;
+  margin-right: 15%;
+  margin-left: 15%;
   width: 100%;
-  max-width: 300px; /* Adjust width as needed */
-  margin-bottom: 20px;
+}
+/* Grid container for exercises */
+.exercises-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+  gap: 10px; /* Space between exercise cards */
+  justify-content: center;
+  margin-right: 15%;
+  margin-left: 15%;
+  width: 100%;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .search-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .search-bar button {
-    margin-left: 0;
-    margin-top: 10px;
-  }
-
+/* Media query for small screens to ensure at least 2 columns */
+@media (max-width: 600px) {
   .exercises-container {
-    flex-direction: column;
-    align-items: center;
-    width:100%;
+    grid-template-columns: repeat(2, 1fr); /* Minimum of 2 columns on smaller screens */
+    margin-right: 5%;
+    margin-left: 5%; /* Reduce margins for smaller screens */
+  }
+  .exercises-grid {
+    grid-template-columns: repeat(2, 1fr); /* Minimum of 2 columns on smaller screens */
+    margin-right: 5%;
+    margin-left: 5%; /* Reduce margins for smaller screens */
   }
 }
 
-/* Responsive Breakpoints */
-@media (max-width: 768px) {
-  .search-bar {
-    flex-direction: column;
-    align-items: center;
+/* Media query for very small screens */
+@media (max-width: 400px) {
+  .exercises-container {
+    grid-template-columns: repeat(2, 1fr); /* Minimum of 2 columns */
+    gap: 5px; /* Smaller gap for very small screens */
+    margin-right: 2%;
+    margin-left: 2%;
   }
-
-  .search-bar input {
-    margin-bottom: 10px;
-    width: 90%;
+  .exercises-grid {
+    grid-template-columns: repeat(2, 1fr); /* Minimum of 2 columns */
+    gap: 5px; /* Smaller gap for very small screens */
+    margin-right: 2%;
+    margin-left: 2%;
   }
-
-  .body-part-container {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-
-
-@media (max-width: 480px) {
-  .search-bar input, .search-bar button {
-    width: 100%;
-  }
+}
