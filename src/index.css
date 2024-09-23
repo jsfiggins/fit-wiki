@@ -352,7 +352,7 @@ margin:auto;
 /* Carousel container */
 .body-part-scroll-wrapper {
   position: relative;
-  overflow: hidden; /* Hide the overflowing cards */
+  overflow: auto;
   width: 100%;
   height: 120px;
   margin: 0 auto;
@@ -463,8 +463,7 @@ margin:auto;
   padding: 20px;
   margin-top: auto;
   text-align: center; /* Center the content */
-  margin-left:15%;
-  margin-right:15%;
+ 
 
 }
 
@@ -515,16 +514,6 @@ margin:auto;
   background-color: #e02e1b;
 }
 
-/* Grid container for exercises */
-.exercises-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
-  gap: 10px; /* Space between exercise cards */
-  justify-content: center;
-  margin-right: 15%;
-  margin-left: 15%;
-  width: 100%;
-}
 /* Grid container for exercises */
 .exercises-container {
   display: grid;
